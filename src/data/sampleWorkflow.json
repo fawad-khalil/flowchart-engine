@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    { "id": "start1", "type": "start", "label": "Webhook: Signup", "position": { "x": 100, "y": 100 } },
+    { "id": "action1", "type": "action", "label": "AI Enrich", "position": { "x": 300, "y": 100 }, "config": { "model": "gpt-4", "endpoint": "/api/enrich" } },
+    { "id": "decision1", "type": "decision", "label": "Hot Lead?", "position": { "x": 500, "y": 100 }, "config": { "condition": "score > 80" } },
+    { "id": "email1", "type": "terminal", "label": "Send Sales Email", "position": { "x": 700, "y": 50 }, "config": { "subject": "Welcome!", "body": "Thanks for signing up" } },
+    { "id": "crm1", "type": "terminal", "label": "Add to CRM", "position": { "x": 700, "y": 150 }, "config": { "list": "warm-leads" } }
+  ],
+  "edges": [
+    { "id": "e1", "source": "start1", "target": "action1" },
+    { "id": "e2", "source": "action1", "target": "decision1" },
+    { "id": "e3", "source": "decision1", "target": "email1", "condition": "Hot" },
+    { "id": "e4", "source": "decision1", "target": "crm1", "condition": "Warm" }
+  ]
+}
